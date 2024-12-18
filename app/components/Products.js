@@ -22,9 +22,12 @@ const reducer = function (state, action) {
         return { ...state, cart: updatedCart };
       } else {
         const newProduct = { ...action.payload, quantity: 1 };
-        console.log("Product added:", newProduct);
+        // console.log("Product added:", newProduct);
         return { ...state, cart: [...state.cart, newProduct] };
       }
+
+    case "increase_quantaty":
+      console.log(state.cart);
 
     case "delete_product":
       const updatedCart = state.cart.filter(
@@ -94,17 +97,23 @@ const Products = () => {
                   {product.price} Lei
                   <div className="d-flex">
                     <p>Quantity:</p>
-                    <button className="btn">➕</button>
+                    <button
+                      onClick={() =>
+                        dispatch({
+                          type: "increase_quantaty",
+                          payload: product.quantity,
+                        })
+                      }
+                      className="btn"
+                    >
+                      ➕
+                    </button>
                     <span className="quantity">{product.quantity}</span>
                     <button className="btn">➖</button>
                   </div>
                 </div>
               </div>
-              <button
-                onClick={() =>
-                  dispatch({ type: "delete_product", payload: product.id })
-                }
-              >
+              <button onClick={() => dispatch({ type: "delete_product" })}>
                 Delete
               </button>
             </li>

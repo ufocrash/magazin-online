@@ -18,22 +18,27 @@ const reducer = function (state, action) {
             ? { ...product, quantity: product.quantity + 1 }
             : product
         );
-        console.log("Product quantity updated:", updatedCart);
+
         return { ...state, cart: updatedCart };
       } else {
         const newProduct = { ...action.payload, quantity: 1 };
-        // console.log("Product added:", newProduct);
+
         return { ...state, cart: [...state.cart, newProduct] };
       }
 
-    case "increase_quantaty":
-      console.log(state.cart);
+    case "decreas_quantity":
+      const updateQuantity = state.cart.map((product) =>
+        product.id === action.payload.id
+          ? { ...product, quantity: product.quantity - 1 }
+          : product
+      );
+
+      return { ...state, cart: updateQuantity };
 
     case "delete_product":
       const updatedCart = state.cart.filter(
         (item) => item.id !== action.payload
       );
-
       return { ...state, cart: updatedCart };
     case "empty_cart":
       return { ...state, cart: [] };
@@ -99,21 +104,32 @@ const Products = () => {
                     <p>Quantity:</p>
                     <button
                       onClick={() =>
-                        dispatch({
-                          type: "increase_quantaty",
-                          payload: product.quantity,
-                        })
+                        dispatch({ type: "add_product", payload: product })
                       }
                       className="btn"
                     >
                       ➕
                     </button>
                     <span className="quantity">{product.quantity}</span>
-                    <button className="btn">➖</button>
+                    <button
+                      onClick={() =>
+                        dispatch({
+                          type: "decreas_quantity",
+                          payload: product,
+                        })
+                      }
+                      className="btn"
+                    >
+                      ➖
+                    </button>
                   </div>
                 </div>
               </div>
-              <button onClick={() => dispatch({ type: "delete_product" })}>
+              <button
+                onClick={() =>
+                  dispatch({ type: "delete_product", payload: product.id })
+                }
+              >
                 Delete
               </button>
             </li>

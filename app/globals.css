@@ -17,6 +17,10 @@ footer {
   font-size: 50px;
 }
 
+.menu {
+  position: relative;
+}
+
 .product {
   background: #fff;
   border-radius: 4px;
@@ -24,6 +28,7 @@ footer {
   padding: 10px;
   padding-top: 30px;
   width: 100%;
+  position: relative;
 }
 
 .product-details {
@@ -67,6 +72,7 @@ footer {
 
 .navbar {
   height: 56px;
+  background: #fff;
 }
 
 .search-button {
@@ -84,6 +90,11 @@ form {
 
 #navbarSupportedContent {
   width: 100%;
+  max-width: 400px;
+}
+
+.menuItemsContainer {
+  align-items: center;
 }
 
 .form-control {
@@ -97,14 +108,15 @@ form {
   font-size: 14px;
 }
 
-.menu {
-  min-width: 300px;
-}
-
 .drp-custom {
   background-color: none;
   padding: 0;
   margin: 0;
+}
+
+.dropdown-menu {
+  position: absolute;
+  right: 0;
 }
 
 .basket {
@@ -128,4 +140,30 @@ form {
   font-size: 30px;
   font-weight: bold;
   padding: 0 20px;
+}
+
+.addToFavorites {
+  background: none;
+  outline: none;
+  border: none;
+  font-size: 25px;
+  color: #ef2809;
+  position: absolute;
+  right: 10px;
+  top: 0px;
+}
+
+.btn-basket {
+  padding: 0;
+  margin: 0;
+}
+
+.right-menu {
+  display: flex;
+  align-items: center;
+}
+
+.right-menu li {
+  list-style: none;
+  padding-left: 20px;
 }

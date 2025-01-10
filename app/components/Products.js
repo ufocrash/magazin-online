@@ -4,6 +4,8 @@ import React, { useReducer } from "react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
+import { FaRegHeart } from "react-icons/fa";
+import { FaHeart } from "react-icons/fa";
 
 const reducer = function (state, action) {
   switch (action.type) {
@@ -27,21 +29,40 @@ const reducer = function (state, action) {
       }
 
     case "decreas_quantity":
-      const updateQuantity = state.cart.map((product) =>
-        product.id === action.payload.id
-          ? { ...product, quantity: product.quantity - 1 }
-          : product
-      );
+      const updateQuantity = state.cart
+        .map((product) => {
+          return product.id === action.payload.id
+            ? { ...product, quantity: product.quantity - 1 }
+            : product;
+        })
+        .filter((product) => product.quantity > 0);
 
       return { ...state, cart: updateQuantity };
+
+    case "addToFavorites":
+      const isFavorite = state.favorites.some(
+        (product) => product.id === action.payload.id
+      );
+      console.log(isFavorite);
+
+      if (isFavorite) {
+        const updatedFavorites = state.favorites.filter(
+          (product) => product.id !== action.payload.id
+        );
+        return { ...state, favorites: updatedFavorites };
+      } else {
+        return { ...state, favorites: [...state.favorites, action.payload] };
+      }
 
     case "delete_product":
       const updatedCart = state.cart.filter(
         (item) => item.id !== action.payload
       );
       return { ...state, cart: updatedCart };
+
     case "empty_cart":
       return { ...state, cart: [] };
+
     default:
       return state;
   }
@@ -49,12 +70,15 @@ const reducer = function (state, action) {
 
 const initialState = {
   cart: [],
+  favorites: [],
 };
 
 const Products = () => {
   // Setam products cu ce returneaza api-ul
   const [products, setProducts] = useState([]);
+  //Afisare erori fetch api
   const [error, setError] = useState();
+  //Updatare cart
   const [state, dispatch] = useReducer(reducer, initialState);
 
   // Query catre api pentru a afisa toate produsele
@@ -69,7 +93,7 @@ const Products = () => {
         setProducts(resoult);
       } catch (err) {
         setError(err.message);
-        console.error("You have an error" + err);
+        console.error("Error fetching products" + err);
       }
     };
     fetchProducts();
@@ -87,6 +111,25 @@ const Products = () => {
 
   return (
     <div className="container">
+      <div className="myFav">
+        Favorite items
+        <ul>
+          {state.favorites.map((favorite, index) => (
+            <li key={index}>
+              <Link href={`./singleProduct/${favorite.id}`}>
+                {favorite.title}
+              </Link>
+              <button
+                onClick={() =>
+                  dispatch({ type: "addToFavorites", payload: favorite })
+                }
+              >
+                Remove from favorites
+              </button>
+            </li>
+          ))}
+        </ul>
+      </div>
       {/* Cart */}
       <p>Cart products</p>
       <button onClick={() => dispatch({ type: "empty_cart" })}>
@@ -97,9 +140,10 @@ const Products = () => {
           <div key={index}>
             <li>
               <div>
-                <p>{product.title}</p>
+                <p>
+                  {product.title} | Pret: {product.price} Lei
+                </p>
                 <div>
-                  {product.price} Lei
                   <div className="d-flex">
                     <p>Quantity:</p>
                     <button
@@ -123,6 +167,9 @@ const Products = () => {
                       ➖
                     </button>
                   </div>
+                  <span>
+                    Total: {(product.quantity * product.price).toFixed(2)} lei
+                  </span>
                 </div>
               </div>
               <button
@@ -136,6 +183,7 @@ const Products = () => {
           </div>
         ))}
       </ul>
+
       {groupedProducts.map((group, index) => (
         <div key={index} className="row mb-4">
           {group.map((product) => (
@@ -144,6 +192,18 @@ const Products = () => {
               className="col-md-3 d-flex align-items-stretch"
             >
               <div className="product d-flex flex-column justify-content-between">
+                <button
+                  onClick={() =>
+                    dispatch({ type: "addToFavorites", payload: product })
+                  }
+                  className="addToFavorites"
+                >
+                  {state.favorites.some((fav) => fav.id === product.id) ? (
+                    <FaHeart />
+                  ) : (
+                    <FaRegHeart />
+                  )}
+                </button>
                 <div className="thumb-inner">
                   <Link href={`../singleProduct/${product.id}`}>
                     <Image

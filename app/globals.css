@@ -55,8 +55,8 @@ footer {
 }
 
 .thumb-inner img {
-  max-height: 150px;
-  object-fit: cover;
+  max-height: 350px;
+  object-fit: contain;
 }
 
 .productImage {

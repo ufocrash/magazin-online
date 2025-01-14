@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import "./style.css";
 
 const Single = () => {
   const { id } = useParams();
@@ -31,12 +32,30 @@ const Single = () => {
   if (!product) return <p>Loading...</p>;
 
   return (
-    <div className="container-fluid">
+    <div className="container">
       <div className="row">
         <div className="col-8">
-          <h2>{product.title}</h2>
-          <div className="productImage">
-            <img src={product.image} alt={product.title} />
+          <h2 className="productTitle">{product.title}</h2>
+          <div className="row">
+            <div className="col-4">
+              <div className="productImage">
+                <img src={product.image} alt={product.title} />
+              </div>
+            </div>
+            <div className="col-8">
+              <div className="rating">
+                <img
+                  src={"../../../public/images/fillStars.png"}
+                  className="starFill"
+                  alt={"star"}
+                />
+                <img
+                  src={"../../../public/images/emptyStars.png"}
+                  className="starEmpty"
+                  alt={"star"}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

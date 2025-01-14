@@ -111,6 +111,11 @@ const Products = () => {
 
   return (
     <div className="container">
+      <div className="row">
+        <div className="col">
+          <div className="hero"></div>
+        </div>
+      </div>
       <div className="myFav">
         Favorite items
         <ul>

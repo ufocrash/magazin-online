@@ -1,6 +1,9 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import Image from "next/image";
+import sratFill from "../../../public/images/fillStars.png";
+import starrEmpty from "../../../public/images/emptyStars.png";
 import "./style.css";
 
 const Single = () => {
@@ -43,17 +46,19 @@ const Single = () => {
               </div>
             </div>
             <div className="col-8">
+              <div className="price">
+                <p>{product.price}$</p>
+              </div>
               <div className="rating">
-                <img
-                  src={"../../../public/images/fillStars.png"}
+                <div
+                  style={{ width: `${10 * product.rating.rate}%` }}
                   className="starFill"
-                  alt={"star"}
-                />
-                <img
-                  src={"../../../public/images/emptyStars.png"}
-                  className="starEmpty"
-                  alt={"star"}
-                />
+                >
+                  <Image src={sratFill} alt="some text" />
+                </div>
+                <div className="starEmpty">
+                  <Image src={starrEmpty} alt="some text" />
+                </div>
               </div>
             </div>
           </div>

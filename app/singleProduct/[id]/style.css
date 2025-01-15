@@ -9,3 +9,13 @@
 .rating {
   position: relative;
 }
+
+.starEmpty {
+  position: absolute;
+  top: 0;
+  z-index: -1;
+}
+
+.starFill {
+  overflow-x: hidden;
+}

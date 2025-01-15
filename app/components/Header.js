@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
-        <div className="d-flex w-100 align-items-center px-3 justify-content-between">
+        <div className="d-flex w-100 align-items-center justify-content-between">
           <div className="d-flex align-items-center justify-content-between">
             <Link className="navbar-brand helper-1" href="/">
               <h2>TMAG</h2>

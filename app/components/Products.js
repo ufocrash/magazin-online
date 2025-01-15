@@ -43,7 +43,6 @@ const reducer = function (state, action) {
       const isFavorite = state.favorites.some(
         (product) => product.id === action.payload.id
       );
-      console.log(isFavorite);
 
       if (isFavorite) {
         const updatedFavorites = state.favorites.filter(

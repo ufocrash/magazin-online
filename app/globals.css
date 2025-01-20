@@ -114,7 +114,62 @@ form {
 
 .dropdown-menu {
   position: absolute;
+  padding: 15px 15px 0 15px;
+  margin: 0 auto;
+  left: 0;
   right: 0;
+  width: 100%;
+  min-width: 300px;
+}
+
+.dropdown-menu li {
+  padding-left: 0 !important;
+  margin-bottom: 15px;
+}
+
+.fav-items img {
+  width: 100%;
+  max-width: 30px;
+  margin-right: 10px;
+  object-fit: contain;
+}
+
+.fav-items {
+  display: flex;
+  border-bottom: 1px solid #e7e7e7;
+  padding-bottom: 12px;
+  text-align: left;
+  justify-content: space-between;
+}
+
+.removeFavItem {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  text-align: right;
+}
+
+.favProductLink {
+  color: #000;
+  text-decoration: none;
+}
+.addToCartFromFav {
+  padding: 0;
+  width: auto;
+  background: rgb(255, 81, 0);
+  border-radius: 5px;
+  color: #fff;
+  border: none;
+  display: inline-block;
+  margin-top: 10px;
+  max-width: 138px;
+  width: 100%;
+}
+
+.priceBox {
+  padding-left: 10px;
 }
 
 .basket {
@@ -132,6 +187,16 @@ form {
   color: #fff;
   width: 100%;
   margin-top: 10px;
+}
+
+.emptyCart {
+  background: rgb(255, 81, 0);
+  color: #fff;
+  width: 100%;
+  border: none;
+  height: 30px;
+  border-radius: 5px;
+  margin-bottom: 10px;
 }
 
 .quantity {
@@ -200,4 +265,13 @@ form {
 
 .relatedProducts h3 {
   padding: 40px 0px 30px 20px;
+}
+
+.dropdown:hover > .dropdown-menu {
+  display: block;
+}
+
+.dropdown > .dropdown-toggle:active {
+  /*Without this, clicking will make it sticky*/
+  pointer-events: none;
 }

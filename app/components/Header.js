@@ -2,16 +2,10 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
+import HeaderCart from "./HeaderCart";
+import HeaderFavorites from "./HeaderFavorites";
 
 const Header = () => {
-  const [dropdown, setDropdown] = useState({ display: "none" });
-  const showDropdown = function (e) {
-    setDropdown({ display: "block" });
-  };
-
-  const hideDropdown = function () {
-    dropdown.display === "block" ? setDropdown({ display: "none" }) : "";
-  };
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
@@ -47,14 +41,22 @@ const Header = () => {
                 </div>
               </li>
               <li>
-                <div className="favorite">Favorite</div>
+                <div className="dropdown">
+                  <button
+                    className="btn btn-dropdown"
+                    type="button"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="true"
+                  >
+                    Favorites
+                  </button>
+                  <ul className="dropdown-menu">
+                    <HeaderFavorites />
+                  </ul>
+                </div>
               </li>
               <li>
-                <div
-                  className="menu"
-                  onMouseEnter={showDropdown}
-                  onMouseLeave={hideDropdown}
-                >
+                <div className="menu">
                   <div className="dropdown">
                     <button
                       className="btn btn-basket"
@@ -62,9 +64,12 @@ const Header = () => {
                       data-bs-toggle="dropdown"
                       aria-expanded="true"
                     >
-                      Coșul meu
+                      Basket
                     </button>
-                    <ul style={dropdown} className="dropdown-menu"></ul>
+                    <ul className="dropdown-menu">
+                      <p>Cart products</p>
+                      <HeaderCart />
+                    </ul>
                   </div>
                 </div>
               </li>

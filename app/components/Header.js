@@ -1,11 +1,7 @@
 "use client";
-import React, { useState, useReducer } from "react";
-import Image from "next/image";
-import logo from "../../public/images/logo.png";
+import React, { useState } from "react";
 import Link from "next/link";
-import { IoCartOutline } from "react-icons/io5";
 import { CiSearch } from "react-icons/ci";
-import BasketInMenu from "./BasketInMenu";
 
 const Header = () => {
   const [dropdown, setDropdown] = useState({ display: "none" });
@@ -68,9 +64,7 @@ const Header = () => {
                     >
                       Coșul meu
                     </button>
-                    <ul style={dropdown} className="dropdown-menu">
-                      <BasketInMenu />
-                    </ul>
+                    <ul style={dropdown} className="dropdown-menu"></ul>
                   </div>
                 </div>
               </li>

@@ -1,11 +1,16 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { CiSearch } from "react-icons/ci";
 import HeaderCart from "./HeaderCart";
 import HeaderFavorites from "./HeaderFavorites";
+import { logoutUser } from "../utils/auth";
 
 const Header = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem("token"));
+  }, []);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
@@ -33,12 +38,14 @@ const Header = () => {
           <div className="menuItemsContainer d-flex">
             <ul className="right-menu">
               <li>
-                <div className="myAccount">
-                  <div className="avatar d-flex">
-                    <img src="/public/images/logo.png" alt="" />
-                  </div>
-                  Contul meu
-                </div>
+                {isAuthenticated ? (
+                  <>
+                    <Link href="/dashboard">Dashboard</Link>
+                    <button onClick={logoutUser}>Logout</button>
+                  </>
+                ) : (
+                  <Link href="/login">Login</Link>
+                )}
               </li>
               <li>
                 <div className="dropdown">

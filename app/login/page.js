@@ -1,42 +1,45 @@
-import React from "react";
-import "./style.css";
-import Link from "next/link";
+"use client";
+import { useState } from "react";
+import { loginUser } from "../utils/auth";
+import { useRouter } from "next/navigation";
 
-const page = () => {
+export default function LoginPage() {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState(null);
+  const router = useRouter();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError(null);
+
+    const user = await loginUser(username, password);
+    if (!user) {
+      setError("Invalid credentials");
+    } else {
+      router.push("/dashboard"); // Redirect to dashboard after login
+    }
+  };
+
   return (
     <div className="container">
-      <div className="modalContainer">
-        <div className="background">
-          <div className="shape"></div>
-          <div className="shape"></div>
-        </div>
-        <form className="modalForm">
-          <h3>Login Here</h3>
-
-          <label htmlFor="username">Username</label>
-          <input
-            className="loginInput"
-            type="text"
-            placeholder="Email or Phone"
-            id="username"
-          />
-
-          <label htmlFor="password">Password</label>
-          <input
-            className="loginInput"
-            type="password"
-            placeholder="Password"
-            id="password"
-          />
-
-          <button className="modal-button">Log In</button>
-          <p>
-            Don't have an account? Register <Link href={"/register"}>here</Link>
-          </p>
-        </form>
-      </div>
+      <h2>Login</h2>
+      {error && <p style={{ color: "red" }}>{error}</p>}
+      <form onSubmit={handleSubmit}>
+        <input
+          type="text"
+          placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <button type="submit">Login</button>
+      </form>
     </div>
   );
-};
-
-export default page;
+}

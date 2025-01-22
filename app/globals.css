@@ -2,9 +2,20 @@ body {
   background-color: #f2f2f7;
 }
 
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
 footer {
-  height: 100px;
   background: #ffffff;
+}
+
+.main-container {
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Header, content, footer */
+  min-height: 100vh;
 }
 
 .navbar-brand h2 {
@@ -114,13 +125,14 @@ form {
 }
 
 .dropdown-menu {
-  position: absolute;
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 15px 15px;
   margin: 0 auto;
-  left: 0;
   right: 0;
-  width: 100%;
   min-width: 300px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
 }
 
 .dropdown-menu li {
@@ -141,6 +153,12 @@ form {
   padding-bottom: 12px;
   text-align: left;
   justify-content: space-between;
+}
+
+.fav-items:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 0;
 }
 
 .removeFavItem {
@@ -231,6 +249,13 @@ form {
 .right-menu li {
   list-style: none;
   padding-left: 20px;
+  color: #161616;
+}
+
+.right-menu li a {
+  text-decoration: none;
+  color: #161616;
+  font-size: 16px;
 }
 
 .hero {
@@ -276,4 +301,29 @@ form {
 .dropdown > .dropdown-toggle:active {
   /*Without this, clicking will make it sticky*/
   pointer-events: none;
+}
+
+.userAvatar {
+  padding: 2px;
+  border-radius: 100%;
+  background: rgb(240, 240, 240);
+  border: 1px solid rgb(255, 81, 0);
+  color: rgb(255, 81, 0);
+  display: inline-block;
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.seeAllProducts {
+  text-align: center;
+  display: inline-block;
+  width: 100%;
+  background: rgb(36, 36, 36);
+  padding: 7px 0;
+  border-radius: 7px;
+  margin-top: 20px;
+  color: #fff !important;
 }

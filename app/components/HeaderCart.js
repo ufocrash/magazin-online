@@ -4,65 +4,63 @@ import { useContext } from "react";
 
 const HeaderCart = () => {
   const { state, dispatch } = useContext(CartContext);
-  if (!state.cart) {
+  if (state.cart.length < 1) {
     return "Your cart is empty";
   }
   return (
     <div>
-      <ul>
-        {state.cart.map((product, index) => (
-          <div key={index}>
-            <li>
+      {state.cart.map((product, index) => (
+        <div key={index}>
+          <li>
+            <div>
+              <p>
+                {product.title} | Pret: {product.price} Lei
+              </p>
               <div>
-                <p>
-                  {product.title} | Pret: {product.price} Lei
-                </p>
-                <div>
-                  <div className="d-flex">
-                    <p>Quantity:</p>
-                    <button
-                      onClick={() =>
-                        dispatch({
-                          type: "add_product",
-                          payload: product,
-                        })
-                      }
-                      className="btn"
-                    >
-                      ➕
-                    </button>
-                    <span className="quantity">{product.quantity}</span>
-                    <button
-                      onClick={() =>
-                        dispatch({
-                          type: "decreas_quantity",
-                          payload: product,
-                        })
-                      }
-                      className="btn"
-                    >
-                      ➖
-                    </button>
-                  </div>
-                  <span>
-                    Total: {(product.quantity * product.price).toFixed(2)} lei
-                  </span>
+                <div className="d-flex">
+                  <p>Quantity:</p>
+                  <button
+                    onClick={() =>
+                      dispatch({
+                        type: "add_product",
+                        payload: product,
+                      })
+                    }
+                    className="btn"
+                  >
+                    ➕
+                  </button>
+                  <span className="quantity">{product.quantity}</span>
+                  <button
+                    onClick={() =>
+                      dispatch({
+                        type: "decreas_quantity",
+                        payload: product,
+                      })
+                    }
+                    className="btn"
+                  >
+                    ➖
+                  </button>
                 </div>
+                <span>
+                  Total: {(product.quantity * product.price).toFixed(2)} lei
+                </span>
               </div>
-              <button
-                onClick={() =>
-                  dispatch({
-                    type: "delete_product",
-                    payload: product.id,
-                  })
-                }
-              >
-                Delete
-              </button>
-            </li>
-          </div>
-        ))}
-      </ul>
+            </div>
+            <button
+              onClick={() =>
+                dispatch({
+                  type: "delete_product",
+                  payload: product.id,
+                })
+              }
+            >
+              Delete
+            </button>
+          </li>
+        </div>
+      ))}
       <button
         className="emptyCart"
         onClick={() => dispatch({ type: "empty_cart" })}

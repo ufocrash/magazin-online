@@ -45,6 +45,13 @@ const HeaderFavorites = () => {
               </div>
             </li>
           ))}
+      {state.favorites.length !== 0 ? (
+        <Link className="seeAllProducts" href={"#"}>
+          See all products
+        </Link>
+      ) : (
+        ""
+      )}
     </>
   );
 };

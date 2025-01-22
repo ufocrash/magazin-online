@@ -1,16 +1,14 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import HeaderCart from "./HeaderCart";
 import HeaderFavorites from "./HeaderFavorites";
-import { logoutUser } from "../utils/auth";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  useEffect(() => {
-    setIsAuthenticated(!!localStorage.getItem("token"));
-  }, []);
+  const { user, logout } = useAuth(); // ✅ Get auth state
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
@@ -38,25 +36,28 @@ const Header = () => {
           <div className="menuItemsContainer d-flex">
             <ul className="right-menu">
               <li>
-                {isAuthenticated ? (
+                {user ? (
                   <>
-                    <Link href="/dashboard">Dashboard</Link>
-                    <button onClick={logoutUser}>Logout</button>
+                    <Link className="link" href="/dashboard">
+                      <span className="userAvatar">
+                        {user.name.firstname[0].toUpperCase()}
+                        {user.name.lastname[0].toUpperCase()}
+                      </span>{" "}
+                      My account
+                    </Link>
+                    {/* <button onClick={logoutUser}>Logout</button> */}
                   </>
                 ) : (
-                  <Link href="/login">Login</Link>
+                  <Link className="link" href="/login">
+                    Login
+                  </Link>
                 )}
               </li>
               <li>
                 <div className="dropdown">
-                  <button
-                    className="btn btn-dropdown"
-                    type="button"
-                    data-bs-toggle="dropdown"
-                    aria-expanded="true"
-                  >
+                  <Link href={"#"} className="btn btn-dropdown">
                     Favorites
-                  </button>
+                  </Link>
                   <ul className="dropdown-menu">
                     <HeaderFavorites />
                   </ul>
@@ -65,16 +66,10 @@ const Header = () => {
               <li>
                 <div className="menu">
                   <div className="dropdown">
-                    <button
-                      className="btn btn-basket"
-                      type="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="true"
-                    >
+                    <Link href={"#"} className="btn btn-basket">
                       Basket
-                    </button>
+                    </Link>
                     <ul className="dropdown-menu">
-                      <p>Cart products</p>
                       <HeaderCart />
                     </ul>
                   </div>

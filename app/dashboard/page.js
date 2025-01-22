@@ -1,28 +1,24 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { logoutUser } from "../utils/auth";
-
+import { useAuth } from "../context/AuthContext";
 export default function Dashboard() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const router = useRouter();
-  console.log(isAuthenticated);
+  const { user, handleLogout } = useAuth();
+  console.log(user);
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (!token) {
-      router.push("/login"); // Redirect if not logged in
-    } else {
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  return isAuthenticated ? (
+  return user ? (
     <div className="container">
-      <h2>Welcome to the Dashboard</h2>
-      <button onClick={logoutUser}>Logout</button>
+      <div className="main-container">
+        <div>
+          <h2>Welcome, {user.username}!</h2>
+          <p>Email: {user.email}</p>
+          <p>Phone: {user.phone}</p>
+          <p>
+            Address: {user.address.street}, {user.address.city}
+          </p>
+          <button onClick={handleLogout}>Logout</button>
+        </div>
+      </div>
     </div>
   ) : (
-    <p>Loading...</p>
+    <p>Loading user details...</p>
   );
 }

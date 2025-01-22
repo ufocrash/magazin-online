@@ -8,7 +8,7 @@ const HeaderCart = () => {
     return "Your cart is empty";
   }
   return (
-    <div>
+    <>
       {state.cart.map((product, index) => (
         <div key={index}>
           <li>
@@ -67,7 +67,7 @@ const HeaderCart = () => {
       >
         Empty cart
       </button>
-    </div>
+    </>
   );
 };
 

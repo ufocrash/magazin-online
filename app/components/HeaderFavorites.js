@@ -46,7 +46,7 @@ const HeaderFavorites = () => {
             </li>
           ))}
       {state.favorites.length !== 0 ? (
-        <Link className="seeAllProducts" href={"#"}>
+        <Link className="seeAllProducts" href={"/favorites"}>
           See all products
         </Link>
       ) : (

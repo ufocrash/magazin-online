@@ -26,12 +26,12 @@ export const AuthProvider = ({ children }) => {
       if (!token) throw new Error("Invalid token");
 
       const decoded = jwtDecode(token);
-      console.log("Decoded JWT:", decoded); // ✅ Debugging output
+      // console.log("Decoded JWT:", decoded); // ✅ Debugging output
 
       // Fetch all users
       const usersResponse = await fetch("https://fakestoreapi.com/users");
       const users = await usersResponse.json();
-      console.log("Fetched Users:", users); // ✅ Debugging output
+      // console.log("Fetched Users:", users); // ✅ Debugging output
 
       // Ensure `decoded.user` exists before checking
       if (!decoded.user) {

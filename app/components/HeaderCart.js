@@ -1,6 +1,7 @@
 import React from "react";
 import { CartContext } from "../context/GlobalStateContext";
 import { useContext } from "react";
+import Link from "next/link";
 
 const HeaderCart = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -43,7 +44,9 @@ const HeaderCart = () => {
                     ➖
                   </button>
                 </div>
-                <span>Total: {product.totalPerItem} lei</span>
+                <span className="favPrice">
+                  Total: {(product.quantity * product.price).toFixed(2)} lei
+                </span>
               </div>
             </div>
             <button
@@ -59,15 +62,9 @@ const HeaderCart = () => {
           </li>
         </div>
       ))}
-      <div className="cartTotal">
-        <span>Cart Total: lei</span>
-      </div>
-      <button
-        className="emptyCart"
-        onClick={() => dispatch({ type: "empty_cart" })}
-      >
-        Empty cart
-      </button>
+      <Link href={"/cart"} className="emptyCart">
+        Go to cart
+      </Link>
     </>
   );
 };

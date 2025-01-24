@@ -1,14 +1,19 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { CiSearch } from "react-icons/ci";
 import HeaderCart from "./HeaderCart";
 import HeaderFavorites from "./HeaderFavorites";
 import { useAuth } from "../context/AuthContext";
+import { SlBasket } from "react-icons/sl";
+import { LuHeart } from "react-icons/lu";
+import { useContext } from "react";
+import { CartContext } from "../context/GlobalStateContext";
 
 const Header = () => {
   const { user, logout } = useAuth(); // ✅ Get auth state
+  const { state } = useContext(CartContext);
+  console.log(state.favorites);
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
@@ -56,7 +61,15 @@ const Header = () => {
               <li>
                 <div className="dropdown">
                   <Link href={"#"} className="btn btn-dropdown">
-                    Favorites
+                    <div className="menuBasket">
+                      <LuHeart />
+                      <span>Favorites</span>
+                    </div>
+                    {state.favorites.length < 1 ? (
+                      ""
+                    ) : (
+                      <span className="items">{state.favorites.length}</span>
+                    )}
                   </Link>
                   <ul className="dropdown-menu">
                     <HeaderFavorites />
@@ -67,7 +80,15 @@ const Header = () => {
                 <div className="menu">
                   <div className="dropdown">
                     <Link href={"#"} className="btn btn-basket">
-                      Basket
+                      <div className="menuBasket">
+                        <SlBasket />
+                        <span>Basket</span>
+                      </div>
+                      {state.cart.length < 1 ? (
+                        ""
+                      ) : (
+                        <span className="items">{state.cart.length}</span>
+                      )}
                     </Link>
                     <ul className="dropdown-menu">
                       <HeaderCart />

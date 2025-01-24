@@ -38,7 +38,6 @@ export const AuthProvider = ({ children }) => {
         throw new Error("JWT does not contain a username");
       }
 
-      // 🔹 FIX: Use `decoded.user` instead of `decoded.username`
       const loggedInUser = users.find(
         (u) => u.username.toLowerCase() === decoded.user.toLowerCase()
       );
@@ -49,9 +48,9 @@ export const AuthProvider = ({ children }) => {
       setToken(token);
       sessionStorage.setItem("token", token);
 
-      if (typeof window !== "undefined") {
-        router.push("/dashboard");
-      }
+      // if (typeof window !== "undefined") {
+      //   router.push("/dashboard");
+      // }
     } catch (error) {
       console.error("Login error:", error);
       handleLogout();

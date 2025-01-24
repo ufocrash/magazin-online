@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const CartContext = createContext(null);
 
@@ -39,6 +39,9 @@ const reducer = function (state, action) {
       const isFavorite = state.favorites.some(
         (product) => product.id === action.payload.id
       );
+      setNotification(`${action.payload.title} added to favorites!`);
+      // Hide notification after 2 sec
+      setTimeout(() => setNotification(null), 2000);
 
       if (isFavorite) {
         const updatedFavorites = state.favorites.filter(
@@ -62,6 +65,7 @@ const reducer = function (state, action) {
       return state;
   }
 };
+
 const initialState = {
   cart: [],
   favorites: [],
@@ -69,9 +73,10 @@ const initialState = {
 
 export default function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [notification, setNotification] = useReducer(reducer, null);
 
   return (
-    <CartContext.Provider value={{ state, dispatch }}>
+    <CartContext.Provider value={{ state, dispatch, notification }}>
       {children}
     </CartContext.Provider>
   );

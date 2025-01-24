@@ -33,7 +33,7 @@ const HeaderFavorites = () => {
                 </button>
               </div>
               <div className="d-flex flex-column priceBox">
-                <span>{favorite.price}$</span>
+                <span className="favPrice">{favorite.price}$</span>
                 <button
                   className="removeFavItem"
                   onClick={() =>

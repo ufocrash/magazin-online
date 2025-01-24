@@ -6,9 +6,10 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { CartContext } from "../context/GlobalStateContext";
+import Notification from "./Notification";
 
 const Products = () => {
-  const { state, dispatch } = useContext(CartContext);
+  const { state, dispatch, notification } = useContext(CartContext);
   // Setam products cu ce returneaza api-ul
   const [products, setProducts] = useState([]);
   //Afisare erori fetch api
@@ -50,7 +51,12 @@ const Products = () => {
           <div className="hero"></div>
         </div>
       </div>
-
+      {notification && (
+        <Notification
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )}
       {groupedProducts.map((group, index) => (
         <div key={index} className="row mb-4">
           {group.map((product) => (

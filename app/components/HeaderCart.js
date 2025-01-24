@@ -43,9 +43,7 @@ const HeaderCart = () => {
                     ➖
                   </button>
                 </div>
-                <span>
-                  Total: {(product.quantity * product.price).toFixed(2)} lei
-                </span>
+                <span>Total: {product.totalPerItem} lei</span>
               </div>
             </div>
             <button
@@ -61,6 +59,9 @@ const HeaderCart = () => {
           </li>
         </div>
       ))}
+      <div className="cartTotal">
+        <span>Cart Total: lei</span>
+      </div>
       <button
         className="emptyCart"
         onClick={() => dispatch({ type: "empty_cart" })}

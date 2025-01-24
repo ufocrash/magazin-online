@@ -13,7 +13,11 @@ const reducer = function (state, action) {
       if (productId) {
         const updatedCart = state.cart.map((product) =>
           product.id === action.payload.id
-            ? { ...product, quantity: product.quantity + 1 }
+            ? {
+                ...product,
+                quantity: product.quantity + 1,
+                totalPerItem: product.quantity * product.price,
+              }
             : product
         );
 
@@ -28,7 +32,11 @@ const reducer = function (state, action) {
       const updateQuantity = state.cart
         .map((product) => {
           return product.id === action.payload.id
-            ? { ...product, quantity: product.quantity - 1 }
+            ? {
+                ...product,
+                quantity: product.quantity - 1,
+                totalPerItem: product.totalPerItem - product.price,
+              }
             : product;
         })
         .filter((product) => product.quantity > 0);

@@ -47,9 +47,6 @@ const reducer = function (state, action) {
       const isFavorite = state.favorites.some(
         (product) => product.id === action.payload.id
       );
-      setNotification(`${action.payload.title} added to favorites!`);
-      // Hide notification after 2 sec
-      setTimeout(() => setNotification(null), 2000);
 
       if (isFavorite) {
         const updatedFavorites = state.favorites.filter(
@@ -81,10 +78,12 @@ const initialState = {
 
 export default function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [notification, setNotification] = useReducer(reducer, null);
+  const [notification, setNotification] = useState(null);
 
   return (
-    <CartContext.Provider value={{ state, dispatch, notification }}>
+    <CartContext.Provider
+      value={{ state, dispatch, notification, setNotification }}
+    >
       {children}
     </CartContext.Provider>
   );

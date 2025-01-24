@@ -47,9 +47,10 @@ export const AuthProvider = ({ children }) => {
       setUser(loggedInUser);
       setToken(token);
       sessionStorage.setItem("token", token);
+      router.push("/dashboard");
 
       // if (typeof window !== "undefined") {
-      //   router.push("/dashboard");
+      //   router.push("/");
       // }
     } catch (error) {
       console.error("Login error:", error);

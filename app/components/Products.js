@@ -1,6 +1,5 @@
 import Image from "next/image";
-import React, { useContext, useReducer } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import Link from "next/link";
 import { FaCartShopping } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
@@ -9,7 +8,8 @@ import { CartContext } from "../context/GlobalStateContext";
 import Notification from "./Notification";
 
 const Products = () => {
-  const { state, dispatch, notification } = useContext(CartContext);
+  const { state, dispatch, notification, setNotification } =
+    useContext(CartContext);
   // Setam products cu ce returneaza api-ul
   const [products, setProducts] = useState([]);
   //Afisare erori fetch api
@@ -66,9 +66,15 @@ const Products = () => {
             >
               <div className="product d-flex flex-column justify-content-between">
                 <button
-                  onClick={() =>
-                    dispatch({ type: "addToFavorites", payload: product })
-                  }
+                  onClick={() => {
+                    dispatch({ type: "addToFavorites", payload: product });
+                    setNotification(
+                      state.favorites.some((fav) => fav.id === product.id)
+                        ? `${product.title} removed from favorites!`
+                        : `${product.title} added to favorites!`
+                    );
+                    setTimeout(() => setNotification(null), 2000);
+                  }}
                   className="addToFavorites"
                 >
                   {state.favorites.some((fav) => fav.id === product.id) ? (

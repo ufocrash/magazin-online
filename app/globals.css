@@ -404,4 +404,5 @@ form {
 
 .notification.fade-out {
   right: -500px;
+  transform: scale(20%);
 }

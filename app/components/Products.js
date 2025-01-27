@@ -51,12 +51,7 @@ const Products = () => {
           <div className="hero"></div>
         </div>
       </div>
-      {notification && (
-        <Notification
-          message={notification}
-          onClose={() => setNotification(null)}
-        />
-      )}
+      {notification && <Notification message={notification} />}
       {groupedProducts.map((group, index) => (
         <div key={index} className="row mb-4">
           {group.map((product) => (
@@ -73,7 +68,6 @@ const Products = () => {
                         ? `${product.title} removed from favorites!`
                         : `${product.title} added to favorites!`
                     );
-                    setTimeout(() => setNotification(null), 2000);
                   }}
                   className="addToFavorites"
                 >

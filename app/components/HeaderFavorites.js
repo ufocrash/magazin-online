@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { CartContext } from "../context/GlobalStateContext";
 import { useContext } from "react";
+import Image from "next/image";
 
 const HeaderFavorites = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -15,7 +16,12 @@ const HeaderFavorites = () => {
             <li className="fav-items" key={index}>
               <div className="d-flex flex-column">
                 <div className="d-flex">
-                  <img src={favorite.image} alt="" />
+                  <Image
+                    width={"150"}
+                    height={50}
+                    src={favorite.image}
+                    alt=""
+                  />
                   <Link
                     className="favProductLink"
                     href={`./singleProduct/${favorite.id}`}
@@ -24,7 +30,7 @@ const HeaderFavorites = () => {
                   </Link>
                 </div>
                 <button
-                  className="addToCartFromFav"
+                  className="btn addToCartFromFav"
                   onClick={() =>
                     dispatch({ type: "add_product", payload: favorite })
                   }
@@ -33,7 +39,7 @@ const HeaderFavorites = () => {
                 </button>
               </div>
               <div className="d-flex flex-column priceBox">
-                <span className="favPrice">{favorite.price}$</span>
+                <span className="favPriceHeader">{favorite.price}$</span>
                 <button
                   className="removeFavItem"
                   onClick={() =>

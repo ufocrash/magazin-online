@@ -13,7 +13,7 @@ import { CartContext } from "../context/GlobalStateContext";
 const Header = () => {
   const { user, logout } = useAuth(); // ✅ Get auth state
   const { state } = useContext(CartContext);
-  console.log(state.favorites);
+
   return (
     <nav className="navbar navbar-expand-lg bg-body-tertiary mb-2">
       <div className="navbar-container container">
@@ -60,7 +60,7 @@ const Header = () => {
               </li>
               <li>
                 <div className="dropdown">
-                  <Link href={"#"} className="btn btn-dropdown">
+                  <Link href={"/favorites"}>
                     <div className="menuBasket">
                       <LuHeart />
                       <span>Favorites</span>
@@ -77,23 +77,21 @@ const Header = () => {
                 </div>
               </li>
               <li>
-                <div className="menu">
-                  <div className="dropdown">
-                    <Link href={"#"} className="btn btn-basket">
-                      <div className="menuBasket">
-                        <SlBasket />
-                        <span>Basket</span>
-                      </div>
-                      {state.cart.length < 1 ? (
-                        ""
-                      ) : (
-                        <span className="items">{state.cart.length}</span>
-                      )}
-                    </Link>
-                    <ul className="dropdown-menu">
-                      <HeaderCart />
-                    </ul>
-                  </div>
+                <div className="dropdown">
+                  <Link href={"/cart"}>
+                    <div className="menuBasket">
+                      <SlBasket />
+                      <span>Basket</span>
+                    </div>
+                    {state.cart.length < 1 ? (
+                      ""
+                    ) : (
+                      <span className="items">{state.cart.length}</span>
+                    )}
+                  </Link>
+                  <ul className="dropdown-menu">
+                    <HeaderCart />
+                  </ul>
                 </div>
               </li>
             </ul>

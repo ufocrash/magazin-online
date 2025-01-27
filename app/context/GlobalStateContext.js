@@ -16,7 +16,7 @@ const reducer = function (state, action) {
             ? {
                 ...product,
                 quantity: product.quantity + 1,
-                totalPerItem: product.quantity * product.price,
+                totalPerItem: product.price * product.quantity,
               }
             : product
         );
@@ -35,7 +35,7 @@ const reducer = function (state, action) {
             ? {
                 ...product,
                 quantity: product.quantity - 1,
-                totalPerItem: product.totalPerItem - product.price,
+                totalPerItem: product.totalPerItem + product.price,
               }
             : product;
         })
@@ -79,7 +79,7 @@ const initialState = {
 export default function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [notification, setNotification] = useState(null);
-
+  console.log(state);
   return (
     <CartContext.Provider
       value={{ state, dispatch, notification, setNotification }}

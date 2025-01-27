@@ -48,7 +48,12 @@ const Single = () => {
           <div className="row">
             <div className="col-4 productBg d-flex">
               <div className="singleProductImage">
-                <img src={product.image} alt={product.title} />
+                <Image
+                  width={100}
+                  height={100}
+                  src={product.image}
+                  alt={product.title}
+                />
               </div>
             </div>
             <div className="col-8">
@@ -60,10 +65,20 @@ const Single = () => {
                     }}
                     className="starFill"
                   >
-                    <Image width={100} src={sratFill} alt="some text" />
+                    <Image
+                      width={100}
+                      height={100}
+                      src={sratFill}
+                      alt="some text"
+                    />
                   </div>
                   <div className="starEmpty">
-                    <Image width={100} src={starrEmpty} alt="some text" />
+                    <Image
+                      width={100}
+                      height={100}
+                      src={starrEmpty}
+                      alt="some text"
+                    />
                   </div>
                 </div>
                 <p className="productRating">

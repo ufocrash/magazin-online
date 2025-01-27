@@ -1,4 +1,6 @@
 import React, { useEffect, useState } from "react";
+import Link from "next/link";
+import Image from "next/image";
 
 const RelatedItems = ({ product }) => {
   const [category, setCategory] = useState([]);
@@ -32,10 +34,19 @@ const RelatedItems = ({ product }) => {
       {category.length ? (
         <div className="row">
           {category.map((item) => (
-            <div className="col-md-3 white" key={item.id}>
+            <div className="col-md-3" key={item.id}>
               <div className="relatedItems">
                 {item.title}
-                <img src={item.image} alt={item.title} />
+                <Link href={`../singleProduct/${item.id}`}>
+                  <Image
+                    width={100}
+                    height={100}
+                    src={item.image}
+                    alt={item.title}
+                  />
+                </Link>
+                <p>{item.price} lei</p>
+                <button className="btn add-to-cart">Add to cart</button>
               </div>
             </div>
           ))}

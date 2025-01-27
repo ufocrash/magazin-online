@@ -2,6 +2,7 @@ import React from "react";
 import { CartContext } from "../context/GlobalStateContext";
 import { useContext } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 const HeaderCart = () => {
   const { state, dispatch } = useContext(CartContext);
@@ -11,59 +12,33 @@ const HeaderCart = () => {
   return (
     <>
       {state.cart.map((product, index) => (
-        <div key={index}>
-          <li>
-            <div>
-              <p>
-                {product.title} | Pret: {product.price} Lei
-              </p>
-              <div>
-                <div className="d-flex">
-                  <p>Quantity:</p>
-                  <button
-                    onClick={() =>
-                      dispatch({
-                        type: "add_product",
-                        payload: product,
-                      })
-                    }
-                    className="btn"
-                  >
-                    ➕
-                  </button>
-                  <span className="quantity">{product.quantity}</span>
-                  <button
-                    onClick={() =>
-                      dispatch({
-                        type: "decreas_quantity",
-                        payload: product,
-                      })
-                    }
-                    className="btn"
-                  >
-                    ➖
-                  </button>
-                </div>
-                <span className="favPrice">
-                  Total: {(product.quantity * product.price).toFixed(2)} lei
-                </span>
-              </div>
+        <li className="fav-items" key={index}>
+          <div className="d-flex flex-column">
+            <div className="d-flex">
+              <Image width={100} height={50} src={product.image} alt="" />
+              <Link
+                className="favProductLink"
+                href={`./singleProduct/${product.id}`}
+              >
+                {product.title} x <span className="">{product.quantity}</span>
+              </Link>
             </div>
+          </div>
+          <div className="d-flex flex-column priceBox">
+            <span className="favPriceCart">{product.price}$</span>
             <button
+              className="removeFavItem"
               onClick={() =>
-                dispatch({
-                  type: "delete_product",
-                  payload: product.id,
-                })
+                dispatch({ type: "delete_product", payload: product.id })
               }
             >
-              Delete
+              x
             </button>
-          </li>
-        </div>
+          </div>
+        </li>
       ))}
-      <Link href={"/cart"} className="emptyCart">
-        Go to cart
+      <Link className="seeAllProducts" href={"/cart"}>
+        Go to cart{" "}
       </Link>
     </>
   );

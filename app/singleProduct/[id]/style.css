@@ -94,3 +94,8 @@ p.singleProductPrice {
   color: #dc8409;
   border: 1px solid #ed8e0a;
 }
+
+.showNotif {
+  opacity: 1;
+  display: block;
+}

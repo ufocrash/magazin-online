@@ -20,7 +20,11 @@ const HeaderCart = () => {
                 className="favProductLink"
                 href={`./singleProduct/${product.id}`}
               >
-                {product.title} x <span className="">{product.quantity}</span>
+                {product.title} |
+                <span className="cartHeaderQuantity">
+                  {" "}
+                  x {product.quantity}
+                </span>
               </Link>
             </div>
           </div>

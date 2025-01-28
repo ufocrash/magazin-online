@@ -15,7 +15,7 @@ const Products = () => {
   //Afisare erori fetch api
   const [error, setError] = useState();
   //Updatare cart
-
+  const [closed, setClosed] = useState("");
   // Query catre api pentru a afisa toate produsele
   useEffect(() => {
     const fetchProducts = async function () {
@@ -36,7 +36,12 @@ const Products = () => {
 
   // Display errors
   if (error) return <p>Error loading products: {error}</p>;
-  if (!products.length) return <p>Loading...</p>;
+  if (!products.length)
+    return (
+      <div className="container">
+        <p>Loading...</p>
+      </div>
+    );
 
   // Set numbers of products per row
   const groupedProducts = [];
@@ -51,7 +56,13 @@ const Products = () => {
           <div className="hero"></div>
         </div>
       </div>
-      {notification && <Notification message={notification} />}
+      {notification && (
+        <Notification
+          closed={closed}
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )}
       {groupedProducts.map((group, index) => (
         <div key={index} className="row mb-4">
           {group.map((product) => (
@@ -67,6 +78,12 @@ const Products = () => {
                       state.favorites.some((fav) => fav.id === product.id)
                         ? `${product.title} removed from favorites!`
                         : `${product.title} added to favorites!`
+                    );
+
+                    setClosed(
+                      state.favorites.some((fav) => fav.id === product.id)
+                        ? "removeFavorite"
+                        : ""
                     );
                   }}
                   className="addToFavorites"
@@ -93,7 +110,7 @@ const Products = () => {
                     Rating: {product.rating.rate}/{product.rating.count}
                   </span>
                   <div className="d-flex justify-content-between align-items-center">
-                    <span className="price">{product.price} Lei</span>
+                    <span className="price">{product.price}$</span>
                     <button
                       onClick={() =>
                         dispatch({

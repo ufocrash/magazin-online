@@ -1,22 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { FaHeart } from "react-icons/fa";
 
-const Notification = ({ message, onClose }) => {
-  const [fadeOut, setFadeOut] = useState(false);
+const Notification = ({ message, onClose, closed }) => {
   useEffect(() => {
-    const fadeOutTimer = setTimeout(() => {
-      setFadeOut(true);
-    }, 10000);
+    const timer = setTimeout(() => {
+      onClose();
+    }, 2000);
 
-    return () => {
-      clearTimeout(fadeOutTimer);
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [onClose]);
 
   if (!message) return null;
 
   return (
-    <div className={`notification ${fadeOut ? "fade-out" : ""}`}>{message}</div>
+    <div className={`notification d-flex ${closed}`}>
+      <FaHeart className="notificationHeart" />
+      {message}
+    </div>
   );
 };
 

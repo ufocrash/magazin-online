@@ -16,7 +16,6 @@ const reducer = function (state, action) {
             ? {
                 ...product,
                 quantity: product.quantity + 1,
-                totalPerItem: product.price * product.quantity,
               }
             : product
         );
@@ -79,10 +78,19 @@ const initialState = {
 export default function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [notification, setNotification] = useState(null);
-  console.log(state);
+
+  // Function to calculate the total price of all items in the cart
+  const calculateTotalPrice = () => {
+    return state.cart.reduce((total, product) => {
+      return total + product.quantity * product.price;
+    }, 0);
+  };
+
+  const totalPrice = calculateTotalPrice();
+
   return (
     <CartContext.Provider
-      value={{ state, dispatch, notification, setNotification }}
+      value={{ state, dispatch, notification, setNotification, totalPrice }}
     >
       {children}
     </CartContext.Provider>

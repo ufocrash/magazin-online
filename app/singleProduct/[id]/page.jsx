@@ -1,4 +1,6 @@
 "use client";
+import { CartContext } from "@/app/context/GlobalStateContext";
+import { useContext } from "react";
 import RelatedItems from "@/app/components/RelatedItems";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
@@ -8,6 +10,7 @@ import starrEmpty from "../../../public/images/emptyStars.png";
 import "./style.css";
 
 const Single = () => {
+  const { state, dispatch } = useContext(CartContext);
   const { id } = useParams();
   const [product, setProduct] = useState();
   const [error, setError] = useState();
@@ -32,8 +35,18 @@ const Single = () => {
     fetchProduct();
   }, [id]);
 
-  if (error) return <p>Product not found</p>;
-  if (!product) return <p>Loading...</p>;
+  if (error)
+    return (
+      <div className="container">
+        <p>Product not found</p>
+      </div>
+    );
+  if (!product)
+    return (
+      <div className="container">
+        <p>Loading...</p>
+      </div>
+    );
 
   return (
     <div className="container mt-4">
@@ -49,8 +62,8 @@ const Single = () => {
             <div className="col-4 productBg d-flex">
               <div className="singleProductImage">
                 <Image
-                  width={100}
-                  height={100}
+                  width={200}
+                  height={300}
                   src={product.image}
                   alt={product.title}
                 />
@@ -66,18 +79,20 @@ const Single = () => {
                     className="starFill"
                   >
                     <Image
-                      width={100}
-                      height={100}
+                      width={80}
+                      height={20}
                       src={sratFill}
                       alt="some text"
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                   <div className="starEmpty">
                     <Image
-                      width={100}
-                      height={100}
+                      width={80}
+                      height={20}
                       src={starrEmpty}
                       alt="some text"
+                      style={{ width: "auto", height: "auto" }}
                     />
                   </div>
                 </div>
@@ -101,10 +116,23 @@ const Single = () => {
           <div className="rightArea">
             <div className="addToCartContainer">
               <p className="singleProductPrice">Price: {product.price}$</p>
-              <button className="btn custom-btn-single-product">
+              <button
+                onClick={() =>
+                  dispatch({ type: "add_product", payload: product })
+                }
+                className="btn custom-btn-single-product"
+              >
                 Add to Cart
               </button>
-              <button className="btn custom-btn-single-product add-to-favorites-single-product">
+
+              {state.favorites.map((fav) => console.log(fav))}
+
+              <button
+                onClick={() =>
+                  dispatch({ type: "addToFavorites", payload: product })
+                }
+                className="btn custom-btn-single-product add-to-favorites-single-product"
+              >
                 Add to Favorites
               </button>
             </div>

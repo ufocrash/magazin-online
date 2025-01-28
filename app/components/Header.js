@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
-import { CiSearch } from "react-icons/ci";
+// import { CiSearch } from "react-icons/ci";
 import HeaderCart from "./HeaderCart";
 import HeaderFavorites from "./HeaderFavorites";
 import { useAuth } from "../context/AuthContext";
@@ -24,7 +24,7 @@ const Header = () => {
             </Link>
 
             <div className="helper-1" id="navbarSupportedContent">
-              <form className="d-flex " role="search">
+              {/* <form className="d-flex " role="search">
                 <input
                   className="form-control me-2"
                   type="search"
@@ -34,7 +34,7 @@ const Header = () => {
                 <button className="btn search-button" type="submit">
                   <CiSearch />
                 </button>
-              </form>
+              </form> */}
             </div>
           </div>
 
@@ -81,7 +81,7 @@ const Header = () => {
                   <Link href={"/cart"}>
                     <div className="menuBasket">
                       <SlBasket />
-                      <span>Basket</span>
+                      <span>Cart</span>
                     </div>
                     {state.cart.length < 1 ? (
                       ""

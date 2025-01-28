@@ -11,12 +11,12 @@ export default function Dashboard() {
             <h2 className="dashboardTitle">
               <strong>Welcome,</strong> {user.username}
             </h2>
-            <button className="logoutFromDashboard" onClick={handleLogout}>
+            <button className="btn" onClick={handleLogout}>
               Logout
             </button>
           </div>
           <div className="col-md-6">
-            <div className="userInfo">
+            <div className="userInfo card">
               <p>
                 <strong>Email:</strong> {user.email}
               </p>
@@ -34,6 +34,8 @@ export default function Dashboard() {
       </div>
     </div>
   ) : (
-    <p>Loading user details...</p>
+    <div className="container mt-4">
+      <p>Loading user details...</p>
+    </div>
   );
 }

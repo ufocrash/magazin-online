@@ -14,8 +14,8 @@ footer {
 
 .main-container {
   display: grid;
-  grid-template-rows: auto 1fr auto; /* Header, content, footer */
-  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+  min-height: 58vh;
 }
 
 .navbar-brand h2 {
@@ -81,8 +81,9 @@ footer {
 }
 
 .navbar {
-  height: 56px;
-  background: #fff;
+  background: #fff !important;
+  border-bottom: 1px solid rgb(233, 233, 233) !important;
+  height: 60px;
 }
 
 .search-button {
@@ -227,7 +228,7 @@ form {
   outline: none;
   border: none;
   font-size: 25px;
-  color: #161616;
+  color: #ff5100;
   position: absolute;
   right: 10px;
   top: 0px;
@@ -307,6 +308,11 @@ form {
 
 .relatedProducts h3 {
   padding: 40px 0px 30px 20px;
+}
+
+.relatedProductTitle {
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .dropdown:hover > .dropdown-menu {
@@ -401,16 +407,25 @@ form {
 
 .notification {
   position: fixed;
-  top: 20px;
-  right: 20px;
-  background-color: #4caf50;
-  color: white;
+  top: 70px;
+  right: 10px;
+  background-color: #ffffff;
+  color: rgb(20, 20, 20);
   padding: 10px 20px;
-  border-radius: 5px;
+  border-radius: 10px;
+  max-width: 300px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   opacity: 1;
   transition: opacity 0.5s ease-in-out;
   z-index: 999;
+}
+
+.notificationHeart {
+  min-width: 50px;
+  margin-right: 10px;
+  color: #ff5100;
+  font-size: 30px;
+  margin-top: 5px;
 }
 
 .notification.fade-out {
@@ -432,13 +447,25 @@ form {
 
 /* cart */
 .cartQuantity {
-  text-align: right;
+  display: flex;
+  align-items: center;
 }
 .cartQuantity .btn {
-  font-size: 12px;
-  padding: 7px 10px;
+  font-size: 30px;
+  padding: 0 !important;
   border-radius: 50%;
   background-color: #e5e5e5;
+  color: #000000;
+  width: 30px;
+  height: 30px;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cartQuantity .btn span {
+  margin-top: -8px;
 }
 
 .cartQuantity .quantity {
@@ -468,4 +495,32 @@ form {
 
 .green {
   color: #4caf50;
+}
+
+.cartHeaderQuantity {
+  color: #ff5100;
+}
+
+.link {
+  color: #000;
+  text-decoration: none;
+}
+
+.removeFavorite {
+  background-color: #161616;
+  color: #fff;
+}
+
+.card p {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.card p span {
+  color: #ff5100;
+  margin-left: 10px;
+}
+
+p.orderTotal {
+  font-size: 20px;
 }

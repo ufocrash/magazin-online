@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { CartContext } from "../context/GlobalStateContext";
 
 const RelatedItems = ({ product }) => {
+  const { state, dispatch } = useContext(CartContext);
   const [category, setCategory] = useState([]);
   const [error, setError] = useState();
 
@@ -29,24 +31,36 @@ const RelatedItems = ({ product }) => {
 
   return (
     <div className="relatedProducts">
-      <h3>Related products</h3>
       {error && <p>Error: {error}</p>}
       {category.length ? (
         <div className="row">
+          <h3>Related products</h3>
           {category.map((item) => (
-            <div className="col-md-3" key={item.id}>
+            <div className="col-md-3 mb-2" key={item.id}>
               <div className="relatedItems">
-                {item.title}
+                <Link className="link" href={`../singleProduct/${item.id}`}>
+                  <span className="relatedProductTitle">{item.title}</span>
+                </Link>
                 <Link href={`../singleProduct/${item.id}`}>
                   <Image
-                    width={100}
-                    height={100}
+                    width={200}
+                    height={200}
                     src={item.image}
                     alt={item.title}
                   />
                 </Link>
-                <p>{item.price} lei</p>
-                <button className="btn add-to-cart">Add to cart</button>
+                <p>{item.price}$</p>
+                <button
+                  onClick={() =>
+                    dispatch({
+                      type: "add_product",
+                      payload: item,
+                    })
+                  }
+                  className="btn add-to-cart"
+                >
+                  Add to cart
+                </button>
               </div>
             </div>
           ))}

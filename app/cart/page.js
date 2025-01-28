@@ -1,17 +1,22 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CartContext } from "../context/GlobalStateContext";
 import { useContext } from "react";
 import Image from "next/image";
 import Link from "next/link";
 
 const Cart = () => {
-  const { state, dispatch } = useContext(CartContext);
-  if (state.cart.length < 1) {
-    return "Your cart is empty";
-  }
-  return (
-    <div className="container">
+  const { state, dispatch, totalPrice } = useContext(CartContext);
+
+  return state.cart.length < 1 ? (
+    <div className="container main-container">
+      <div className="row">
+        <h2 className="mt-4">My cart</h2>
+        <p className="my-3">Your cart is empty</p>
+      </div>
+    </div>
+  ) : (
+    <div className="container main-container">
       <div className="row">
         <div className="d-flex justify-content-between">
           <h2 className="mt-4">My cart</h2>
@@ -33,19 +38,22 @@ const Cart = () => {
                   <div className="col-md-2 d-flex justify-content-center align-items-center">
                     <Image
                       src={product.image}
-                      alt={""}
+                      alt={product.title}
                       width={100}
                       height={100}
+                      style={{ width: "100%", height: "auto" }}
                     />
                   </div>
                   <div className="col-md-4">
                     <p>
-                      {product.title} | Pret: {product.price} Lei
+                      {product.title} | Price: {product.price}$
                     </p>
                   </div>
                   <div className="col-md-6 justify-content-end d-flex flex-row">
                     <div className="d-flex flex-column justify-content-end">
-                      <span className="favPrice">{product.totalPerItem}$</span>
+                      <span className="favPrice">
+                        {(product.quantity * product.price).toFixed(2)}$
+                      </span>
                       <div className="cartQuantity mb-4">
                         <button
                           onClick={() =>
@@ -56,7 +64,7 @@ const Cart = () => {
                           }
                           className="btn"
                         >
-                          ➖
+                          <span>-</span>
                         </button>
                         <span className="quantity">{product.quantity}</span>
 
@@ -69,11 +77,19 @@ const Cart = () => {
                           }
                           className="btn"
                         >
-                          ➕
+                          <span>+</span>
                         </button>
                       </div>
 
-                      <button className="custom-dotted btn text-end p-0">
+                      <button
+                        onClick={() =>
+                          dispatch({
+                            type: "addToFavorites",
+                            payload: product,
+                          })
+                        }
+                        className="custom-dotted btn text-end p-0"
+                      >
                         Move to favorites
                       </button>
                       <button
@@ -98,7 +114,7 @@ const Cart = () => {
           <div className="toCheckout">
             <div className="text-end">
               <p className="my-0">
-                Subtotal: <span>1.159,98</span>$
+                Subtotal: <span>{totalPrice.toFixed(2)}</span>$
               </p>
               <p>
                 Delivery and processing cost:
@@ -107,10 +123,9 @@ const Cart = () => {
             </div>
 
             <div className="text-end">
-              <p className="my-0">
-                <strong>Total:</strong>
+              <p className="checkoutTotal">
+                <strong>Total: {totalPrice.toFixed(2)}$ </strong>
               </p>
-              <p className="checkoutTotal">272736$</p>
               <Link href="/checkout" className="btn btn-primary">
                 Proceed to checkout
               </Link>

@@ -125,15 +125,19 @@ const Single = () => {
                 Add to Cart
               </button>
 
-              {state.favorites.map((fav) => console.log(fav))}
-
               <button
                 onClick={() =>
                   dispatch({ type: "addToFavorites", payload: product })
                 }
-                className="btn custom-btn-single-product add-to-favorites-single-product"
+                className={`btn custom-btn-single-product add-to-favorites-single-product ${
+                  state.favorites.some((fav) => fav.id === product.id)
+                    ? "favorite-active"
+                    : ""
+                }`}
               >
-                Add to Favorites
+                {state.favorites.some((fav) => fav.id === product.id)
+                  ? "Remove from Favorites"
+                  : "Add to Favorites"}
               </button>
             </div>
           </div>

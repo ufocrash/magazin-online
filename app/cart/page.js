@@ -82,16 +82,21 @@ const Cart = () => {
                       </div>
 
                       <button
-                        onClick={() =>
+                        onClick={() => {
                           dispatch({
                             type: "addToFavorites",
                             payload: product,
-                          })
-                        }
+                          });
+                          dispatch({
+                            type: "delete_product",
+                            payload: product.id,
+                          });
+                        }}
                         className="custom-dotted btn text-end p-0"
                       >
                         Move to favorites
                       </button>
+
                       <button
                         className="custom-dotted btn text-end p-0"
                         onClick={() =>

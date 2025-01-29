@@ -32,7 +32,7 @@ export default function Login() {
   };
 
   return (
-    <div className="d-flex align-items-center justify-content-center vh-100 bg-light">
+    <div className="d-flex align-items-center justify-content-center main-container bg-light">
       <div className="card p-4 shadow-lg w-25">
         <h2 className="text-center mb-4">Login</h2>
         <form onSubmit={loginUser}>

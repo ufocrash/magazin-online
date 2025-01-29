@@ -5,17 +5,22 @@ import { FaCartShopping } from "react-icons/fa6";
 import { FaRegHeart } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { CartContext } from "../context/GlobalStateContext";
-import Notification from "./Notification";
 
 const Products = () => {
-  const { state, dispatch, notification, setNotification } =
-    useContext(CartContext);
+  const {
+    state,
+    dispatch,
+    notification,
+    setNotification,
+    showBoughtProduct,
+    setClosed,
+  } = useContext(CartContext);
   // Setam products cu ce returneaza api-ul
   const [products, setProducts] = useState([]);
   //Afisare erori fetch api
   const [error, setError] = useState();
   //Updatare cart
-  const [closed, setClosed] = useState("");
+
   // Query catre api pentru a afisa toate produsele
   useEffect(() => {
     const fetchProducts = async function () {
@@ -56,13 +61,7 @@ const Products = () => {
           <div className="hero"></div>
         </div>
       </div>
-      {notification && (
-        <Notification
-          closed={closed}
-          message={notification}
-          onClose={() => setNotification(null)}
-        />
-      )}
+      {notification && showBoughtProduct()}
       {groupedProducts.map((group, index) => (
         <div key={index} className="row mb-4">
           {group.map((product) => (
@@ -118,9 +117,20 @@ const Products = () => {
                           payload: product,
                         })
                       }
-                      className="btn add-to-cart"
+                      className={`btn add-to-cart ${
+                        state.cart.some((item) => item.id === product.id)
+                          ? "in-cart"
+                          : ""
+                      }`}
                     >
                       <FaCartShopping />
+                      {state.cart.find((item) => item.id === product.id)
+                        ?.quantity > 0 && (
+                        <span className="cart-badge">
+                          {state.cart.find((item) => item.id === product.id)
+                            .quantity + "x"}
+                        </span>
+                      )}
                     </button>
                   </div>
                 </div>

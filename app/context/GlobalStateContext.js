@@ -1,5 +1,6 @@
 "use client";
 import { createContext, useReducer, useState } from "react";
+import Notification from "../components/Notification";
 
 export const CartContext = createContext(null);
 
@@ -10,6 +11,7 @@ const reducer = function (state, action) {
         (product) => product.id === action.payload.id
       );
 
+      // Add quantity
       if (productId) {
         const updatedCart = state.cart.map((product) =>
           product.id === action.payload.id
@@ -27,6 +29,7 @@ const reducer = function (state, action) {
         return { ...state, cart: [...state.cart, newProduct] };
       }
 
+    // Decrease quantity
     case "decreas_quantity":
       const updateQuantity = state.cart
         .map((product) => {
@@ -78,6 +81,7 @@ const initialState = {
 export default function CartContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [notification, setNotification] = useState(null);
+  const [closed, setClosed] = useState("");
 
   // Function to calculate the total price of all items in the cart
   const calculateTotalPrice = () => {
@@ -86,11 +90,32 @@ export default function CartContextProvider({ children }) {
     }, 0);
   };
 
+  const showBoughtProduct = function () {
+    return (
+      notification && (
+        <Notification
+          closed={closed}
+          message={notification}
+          onClose={() => setNotification(null)}
+        />
+      )
+    );
+  };
+
   const totalPrice = calculateTotalPrice();
 
   return (
     <CartContext.Provider
-      value={{ state, dispatch, notification, setNotification, totalPrice }}
+      value={{
+        state,
+        dispatch,
+        notification,
+        setNotification,
+        totalPrice,
+        showBoughtProduct,
+        closed,
+        setClosed,
+      }}
     >
       {children}
     </CartContext.Provider>

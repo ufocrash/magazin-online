@@ -21,6 +21,9 @@ const Products = () => {
   const [error, setError] = useState();
   //Updatare cart
 
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [categories, setCategories] = useState([]);
+
   // Query catre api pentru a afisa toate produsele
   useEffect(() => {
     const fetchProducts = async function () {
@@ -31,6 +34,13 @@ const Products = () => {
         }
         const resoult = await response.json();
         setProducts(resoult);
+
+        // Extract unique categories
+        const uniqueCategories = [
+          "all",
+          ...new Set(resoult.map((product) => product.category)),
+        ];
+        setCategories(uniqueCategories);
       } catch (err) {
         setError(err.message);
         console.error("Error fetching products" + err);
@@ -38,6 +48,11 @@ const Products = () => {
     };
     fetchProducts();
   }, []);
+
+  const filteredProducts =
+    selectedCategory === "all"
+      ? products
+      : products.filter((product) => product.category === selectedCategory);
 
   // Display errors
   if (error) return <p>Error loading products: {error}</p>;
@@ -50,8 +65,8 @@ const Products = () => {
 
   // Set numbers of products per row
   const groupedProducts = [];
-  for (let i = 0; i < products.length; i += 4) {
-    groupedProducts.push(products.slice(i, i + 4));
+  for (let i = 0; i < filteredProducts.length; i += 4) {
+    groupedProducts.push(filteredProducts.slice(i, i + 4));
   }
 
   return (
@@ -59,6 +74,23 @@ const Products = () => {
       <div className="row">
         <div className="col">
           <div className="hero"></div>
+          <div className="mb-4">
+            <label htmlFor="categoryFilter" className="me-2">
+              <strong>Filter by category:</strong>
+            </label>
+            <select
+              id="categoryFilter"
+              className="form-select w-auto d-inline-block"
+              value={selectedCategory}
+              onChange={(e) => setSelectedCategory(e.target.value)}
+            >
+              {categories.map((category, index) => (
+                <option key={index} value={category}>
+                  {category.charAt(0).toUpperCase() + category.slice(1)}
+                </option>
+              ))}
+            </select>
+          </div>
         </div>
       </div>
       {notification && showBoughtProduct()}

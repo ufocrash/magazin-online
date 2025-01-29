@@ -44,12 +44,15 @@ const Cart = () => {
                       style={{ width: "100%", height: "auto" }}
                     />
                   </div>
-                  <div className="col-md-4">
+                  <div className="col-md-6">
                     <p>
-                      {product.title} | Price: {product.price}$
+                      <strong>{product.title}</strong>
+                    </p>
+                    <p>
+                      Price: <strong>{product.price}$</strong>
                     </p>
                   </div>
-                  <div className="col-md-6 justify-content-end d-flex flex-row">
+                  <div className="col-md-4 justify-content-end d-flex flex-row">
                     <div className="d-flex flex-column justify-content-end">
                       <span className="favPrice">
                         {(product.quantity * product.price).toFixed(2)}$
@@ -119,7 +122,11 @@ const Cart = () => {
           <div className="toCheckout">
             <div className="text-end">
               <p className="my-0">
-                Subtotal: <span>{totalPrice.toFixed(2)}</span>$
+                Subtotal:{" "}
+                <span>
+                  <strong>{totalPrice.toFixed(2)}</strong>
+                </span>
+                $
               </p>
               <p>
                 Delivery and processing cost:

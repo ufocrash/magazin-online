@@ -2,6 +2,10 @@
 import { useAuth } from "../context/AuthContext";
 export default function Dashboard() {
   const { user, handleLogout } = useAuth();
+  // Function to capitalize the first letter of a string
+  const capitalize = (str) => {
+    return str.charAt(0).toUpperCase() + str.slice(1);
+  };
 
   return user ? (
     <div className="container mt-4">
@@ -25,8 +29,8 @@ export default function Dashboard() {
                 {user.phone}
               </p>
               <p>
-                <strong>Address:</strong> {user.address.street},{" "}
-                {user.address.city}
+                <strong>Address:</strong> {capitalize(user.address.street)},
+                {capitalize(user.address.city)}
               </p>
             </div>
           </div>

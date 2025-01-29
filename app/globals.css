@@ -180,10 +180,10 @@ form {
   border: none;
   margin-top: 10px;
   text-decoration: underline;
-  -webkit-text-decoration-style: dotted;
   text-decoration-style: dotted;
   color: rgb(1, 133, 194);
   text-align: left;
+  font-size: 14px;
 }
 
 .priceBox {

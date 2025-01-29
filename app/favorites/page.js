@@ -37,15 +37,15 @@ const Favorites = () => {
                     onClick={() =>
                       dispatch({ type: "add_product", payload: fav })
                     }
-                    className="addToCartFromFav"
+                    className="addToCartFromFav btn"
                   >
-                    Move to cart
+                    Add to cart
                   </button>
                   <button
                     onClick={() =>
                       dispatch({ type: "addToFavorites", payload: fav })
                     }
-                    className="addToCartFromFav mt-0"
+                    className="addToCartFromFav btn mt-0"
                   >
                     Remove from favorites
                   </button>

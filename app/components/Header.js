@@ -9,6 +9,7 @@ import { SlBasket } from "react-icons/sl";
 import { LuHeart } from "react-icons/lu";
 import { useContext } from "react";
 import { CartContext } from "../context/GlobalStateContext";
+import { MdOutlineLogin } from "react-icons/md";
 
 const Header = () => {
   const { user, logout } = useAuth(); // ✅ Get auth state
@@ -53,8 +54,8 @@ const Header = () => {
                     {/* <button onClick={logoutUser}>Logout</button> */}
                   </>
                 ) : (
-                  <Link className="link" href="/login">
-                    Login
+                  <Link className="link menuBasket" href="/login">
+                    <MdOutlineLogin className="mx-1" /> Login
                   </Link>
                 )}
               </li>

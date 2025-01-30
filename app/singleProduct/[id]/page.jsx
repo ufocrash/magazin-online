@@ -66,6 +66,7 @@ const Single = () => {
                   height={300}
                   src={product.image}
                   alt={product.title}
+                  style={{ width: "auto", height: "auto" }}
                 />
               </div>
             </div>

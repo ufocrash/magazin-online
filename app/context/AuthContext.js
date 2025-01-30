@@ -10,7 +10,7 @@ export const AuthProvider = ({ children }) => {
   const [token, setToken] = useState(null);
   const router = useRouter();
 
-  // Load user from token on initial render
+  // Load user
   useEffect(() => {
     if (typeof window !== "undefined") {
       // ✅ Ensure sessionStorage is accessible
@@ -26,12 +26,10 @@ export const AuthProvider = ({ children }) => {
       if (!token) throw new Error("Invalid token");
 
       const decoded = jwtDecode(token);
-      // console.log("Decoded JWT:", decoded); // ✅ Debugging output
 
       // Fetch all users
       const usersResponse = await fetch("https://fakestoreapi.com/users");
       const users = await usersResponse.json();
-      // console.log("Fetched Users:", users); // ✅ Debugging output
 
       // Ensure `decoded.user` exists before checking
       if (!decoded.user) {
@@ -49,9 +47,9 @@ export const AuthProvider = ({ children }) => {
       sessionStorage.setItem("token", token);
       router.push("/dashboard");
 
-      // if (typeof window !== "undefined") {
-      //   router.push("/");
-      // }
+      if (typeof window !== "undefined") {
+        router.push("/");
+      }
     } catch (error) {
       console.error("Login error:", error);
       handleLogout();

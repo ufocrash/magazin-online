@@ -1,5 +1,6 @@
 "use client";
 import { useAuth } from "../context/AuthContext";
+import Link from "next/link";
 export default function Dashboard() {
   const { user, handleLogout } = useAuth();
   // Function to capitalize the first letter of a string
@@ -39,7 +40,10 @@ export default function Dashboard() {
     </div>
   ) : (
     <div className="container mt-4">
-      <p>Loading user details...</p>
+      <p>You must login to your account to access this page.</p>
+      <Link href="/login" className="btn btn-success">
+        Login
+      </Link>
     </div>
   );
 }
